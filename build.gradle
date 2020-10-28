@@ -42,7 +42,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/DumbDogDiner/StickyAPI")
+            url = uri("https://maven.pkg.github.com/Prouser123-forks/StickyAPI")
             // Do not change. Published by CI.
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
