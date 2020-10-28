@@ -31,37 +31,23 @@ dependencies {
     implementation 'com.github.seancfoley:ipaddress:5.3.3'
 }
 
-task docs(type: Javadoc) {
-    source = sourceSets.main.allJava
-    classpath = project.sourceSets.main.runtimeClasspath
-    destinationDir = reporting.file("./docs")
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
+task sources(type: Jar, dependsOn: classes) {
     archiveClassifier.set("sources")
     from sourceSets.main.allSource
 }
 
-
-tasks.publish.dependsOn build, sourcesJar
-
-
-
+tasks.publish.dependsOn build, sources
 
 publishing {
     repositories {
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/DumbDogDiner/StickyAPI")
+            // Do not change. Published by CI.
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
             }
-        }
-    }
-    publications {
-        gpr(MavenPublication) {
-            from(components.java)
         }
     }
 }
